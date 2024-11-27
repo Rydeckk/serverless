@@ -1,0 +1,30 @@
+services:
+  - name: my-app
+    type: web
+    env: node  # ou node, docker, etc., selon ta stack
+    plan: free  # Modifie en fonction de ton besoin
+    buildCommand: "npm i"  # Commandes pour builder ton app
+    startCommand: "npm start"  # Commande pour démarrer ton app
+    envVars:
+      - key: DATABASE_USER
+        fromDatabase:
+          name: my-database
+          property: user
+      - key: DATABASE_HOST
+        fromDatabase:
+          name: my-database
+          property: host
+      - key: DATABASE_NAME
+        fromDatabase:
+          name: my-database
+          property: database
+      - key: DATABASE_PASSWORD
+        fromDatabase:
+          name: my-database
+          property: password
+    region: frankfurt  # Choisis la région qui te convient
+
+databases:
+  - name: my-database
+    plan: free  # Modifie selon tes besoins
+    region: frankfurt
